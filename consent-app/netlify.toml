@@ -1,0 +1,18 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Required for camera API — must be served over HTTPS (Netlify does this automatically)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Permissions-Policy = "camera=*, microphone=()"
+    # Prevents clickjacking
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+
+# SPA fallback — all routes serve index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
